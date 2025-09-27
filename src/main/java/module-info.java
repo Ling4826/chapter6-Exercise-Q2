@@ -5,6 +5,7 @@ module se233.lambda.chapter2 {
     // Add these two lines
     requires org.apache.commons.io;
     requires org.json;
+    requires org.apache.logging.log4j;
 
     opens se233.lambda.chapter2 to javafx.fxml;
     exports se233.lambda.chapter2;

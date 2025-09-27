@@ -49,12 +49,11 @@ public class Launcher extends Application {
         launch(args);
     }
     public static void refreshPane() throws InterruptedException, ExecutionException { // [cite: 3472]
-        topPane.refreshPane(); // [cite: 3472]
-        currencyParentPane.refreshPane(currencyList); // [cite: 3506]
-        primaryStage.sizeToScene(); // [cite: 3506]
+        topPane.refreshPane();
+        currencyParentPane.refreshPane(currencyList);
+        primaryStage.sizeToScene();
     }
 
-    // Getters and Setters for currencyList as implied by the logic
     public static List<Currency> getCurrencyList() { return currencyList; }
     public static void setCurrencyList(List<Currency> currencyList) { Launcher.currencyList = currencyList; }
 }

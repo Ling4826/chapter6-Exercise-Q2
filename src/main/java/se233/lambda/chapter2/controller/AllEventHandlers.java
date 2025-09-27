@@ -5,13 +5,15 @@ import javafx.scene.control.TextInputDialog;
 import se233.lambda.chapter2.Launcher;
 import se233.lambda.chapter2.model.Currency;
 import se233.lambda.chapter2.model.CurrencyEntity;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 public class AllEventHandlers {
+    private static final Logger logger = LogManager.getLogger(AllEventHandlers.class);
     public static void onRefresh() { //
         try {
             Launcher.refreshPane(); //
@@ -59,6 +61,7 @@ public class AllEventHandlers {
                 currencyList.add(c);
                 Launcher.setCurrencyList(currencyList);
                 Launcher.refreshPane();
+                logger.info("Added currency: {}", code.get());
 
                 valid = true; // จบ loop
             } catch (IllegalArgumentException e) {
@@ -82,20 +85,21 @@ public class AllEventHandlers {
     }
 
 
-    public static void onDelete(String code) { // [cite: 3530]
+    public static void onDelete(String code) {
         try {
-            List<Currency> currencyList = Launcher.getCurrencyList(); // [cite: 3530]
-            int index = -1; // [cite: 3531]
-            for (int i = 0; i < currencyList.size(); i++) { // [cite: 3531]
-                if (currencyList.get(i).getShortCode().equals(code)) { // [cite: 3531]
-                    index = i; // [cite: 3532]
-                    break; // [cite: 3532]
+            List<Currency> currencyList = Launcher.getCurrencyList();
+            int index = -1;
+            for (int i = 0; i < currencyList.size(); i++) {
+                if (currencyList.get(i).getShortCode().equals(code)) {
+                    index = i;
+                    break;
                 }
             }
-            if (index != -1) { // [cite: 3532]
-                currencyList.remove(index); // [cite: 3533]
-                Launcher.setCurrencyList(currencyList); // [cite: 3533]
-                Launcher.refreshPane(); // [cite: 3533]
+            if (index != -1) {
+                currencyList.remove(index);
+                Launcher.setCurrencyList(currencyList);
+                logger.info("Deleted currency: {}", code);
+                Launcher.refreshPane();
             }
         } catch (InterruptedException | ExecutionException e) { // [cite: 3533, 3534]
             e.printStackTrace(); // [cite: 3534]
